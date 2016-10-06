@@ -46,6 +46,16 @@ module Jobs
             next
           end
 
+          EmailLog.create!(
+            email_type: 'mailing_list',
+            to_address: user.email,
+            user_id: user.id,
+            post_id: post.id,
+            skipped: true,
+            skipped_reason: "[MailingList] #{user.id}, #{post}"
+          )
+          next
+
           begin
             if message = UserNotifications.mailing_list_notify(user, post)
               EmailLog.unique_email_per_post(post, user) do
