@@ -52,7 +52,7 @@ module Jobs
             user_id: user.id,
             post_id: post.id,
             skipped: true,
-            skipped_reason: "[MailingList] #{user.id}, #{post}"
+            skipped_reason: "[MailingList] #{user.id}, #{post}, #{user.username}, #{post.user_id}"
           )
           next
 
