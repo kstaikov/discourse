@@ -16,7 +16,7 @@ module Jobs
       users =
           User.activated.not_blocked.not_suspended.real
           .joins(:user_option)
-          .where(user_options: {mailing_list_mode: true, mailing_list_mode_frequency: 1})
+          .where(user_options: 'mailing_list_mode AND mailing_list_mode_frequency > 0')
           .where('NOT EXISTS(
                       SELECT 1
                       FROM topic_users tu
@@ -46,7 +46,7 @@ module Jobs
             next
           end
 
-          if user.id == post.user_id
+          if (user.id == post.user_id) && (user.user_options.mailing_list_mode_frequency == 2)
             # Need to internationalize this
             skip(user.email, user.id, post.id, 'Skipped because this user wrote it!')
             next
