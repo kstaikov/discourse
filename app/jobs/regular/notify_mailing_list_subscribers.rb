@@ -46,15 +46,11 @@ module Jobs
             next
           end
 
-          EmailLog.create!(
-            email_type: 'mailing_list',
-            to_address: user.email,
-            user_id: user.id,
-            post_id: post.id,
-            skipped: true,
-            skipped_reason: "[MailingList] #{user.id}, #{post}, #{user.username}, #{post.user_id}"
-          )
-          next
+          if user.id == post.user_id
+            # Need to internationalize this
+            skip(user.email, user.id, post.id, 'Skipped because this user wrote it!')
+            next
+          end
 
           begin
             if message = UserNotifications.mailing_list_notify(user, post)
