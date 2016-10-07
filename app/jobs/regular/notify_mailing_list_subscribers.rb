@@ -16,7 +16,7 @@ module Jobs
       users =
           User.activated.not_blocked.not_suspended.real
           .joins(:user_option)
-          .where('user_options.mailing_list_mode = 1 AND user_options.mailing_list_mode_frequency > 0')
+          .where('user_options.mailing_list_mode AND user_options.mailing_list_mode_frequency > 0')
           .where('NOT EXISTS(
                       SELECT 1
                       FROM topic_users tu
