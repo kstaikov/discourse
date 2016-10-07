@@ -47,7 +47,7 @@ module Jobs
           end
 
           if (user.id == post.user_id) && (user.user_option.mailing_list_mode_frequency == 2)
-            skip(user.email, user.id, post.id, I18n.t('email_log.no_echo_mailing_list_mode')
+            skip(user.email, user.id, post.id, I18n.t('email_log.no_echo_mailing_list_mode'))
             next
           end
 
