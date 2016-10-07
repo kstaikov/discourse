@@ -47,8 +47,7 @@ module Jobs
           end
 
           if (user.id == post.user_id) && (user.user_option.mailing_list_mode_frequency == 2)
-            # Need to internationalize this
-            skip(user.email, user.id, post.id, 'Skipped because this user wrote it!')
+            skip(user.email, user.id, post.id, I18n.t('email_log.no_echo_mailing_list_mode')
             next
           end
 
